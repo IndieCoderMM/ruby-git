@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+RUBIT_DIR = ".rubit".freeze
+OBJECTS_DIR = "#{RUBIT_DIR}/objects".freeze
+REFS_DIR = "#{RUBIT_DIR}/refs".freeze
+
+if Dir.exist? REFS_DIR
+    $stderr.puts "⭐ Existing Rubit project found!"
+    exit 1
+end
+
+def build_objects_dir
+    Dir.mkdir OBJECTS_DIR
+    Dir.mkdir "#{OBJECTS_DIR}/info"
+    Dir.mkdir "#{OBJECTS_DIR}/pack"
+end
+
+def build_refs_dir
+    Dir.mkdir REFS_DIR
+    Dir.mkdir "#{REFS_DIR}/heads"
+    Dir.mkdir "#{REFS_DIR}/tags"
+end
+
+def initialize_head
+    File.open("#{RUBIT_DIR}/HEAD", "w") do |file|
+        file.puts "ref: refs/heads/main"
+    end 
+end
+
+Dir.mkdir RUBIT_DIR
+build_objects_dir
+build_refs_dir
+initialize_head
+
+$stdout.puts "🚀 New Rubit project initialized at #{Dir.pwd}/#{RUBIT_DIR}"
