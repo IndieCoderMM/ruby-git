@@ -8,7 +8,14 @@ require 'rubit/object'
 RUBIT_DIR = "#{Dir.pwd}/.rubit".freeze 
 INDEX_PATH = "#{RUBIT_DIR}/index"
 COMMIT_MESSAGE_TEMPLATE = <<-TXT
-Made awesome changes!
+
+# 🎁✅⚡ Made awesome changes
+# 
+# - <change 1>
+# - <change 2>
+# 
+# Please write your commit message.
+# Line starting with # will be ignored.
 TXT
 
 def index_files
@@ -31,6 +38,8 @@ def index_tree
     end
 end
 
+puts index_tree
+
 def build_tree(name, tree) 
     sha = Digest::SHA1.hexdigest(Time.now.iso8601 + name)
     object = Rubit::Object.new(sha)
@@ -52,11 +61,17 @@ end
 def build_commit(tree:)
     commit_message_path = "#{RUBIT_DIR}/COMMIT_EDITMSG"
 
-    puts ENV['VISUAL']
     `echo "#{COMMIT_MESSAGE_TEMPLATE}" > #{commit_message_path}`
     `nano #{commit_message_path} >/dev/tty`
 
-    message = File.read commit_message_path
+    message = ""
+    File.open(commit_message_path, 'r') do |file|
+        file.each_line do |line|
+            next if line.start_with?('#')
+            message += line 
+        end
+    end
+
     committer = "user"
     sha = Digest::SHA1.hexdigest(Time.now.iso8601 + committer)
     object = Rubit::Object.new(sha)

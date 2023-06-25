@@ -3,8 +3,20 @@
 command, *args = ARGV
 
 if command.nil?
-    $stderr.puts "🔧 Usage: rubit <command> [<args>]"
+    $stderr.puts "📃 Syntax: rubit <command> [<args>]"
+    $stderr.puts "💡 Try 'rubit -h' to see available commands"
     exit 1
+end
+
+if command == '-h' || command == '--help' 
+    puts '🔧 Rubit - Available Commands'
+    puts '------------------------------'
+    puts "- init         - 🌱 Initialize a new Rubit project"
+    puts "- add <file>   - 📁 Add a file to the staging area"
+    puts "- commit       - 💾 Commit the staged changes"
+    puts "- status       - 🔍 Show the current status"
+    puts "- log          - 📜 Display the commit history"
+    exit 0
 end
 
 path_to_command = File.expand_path("../rubit-#{command}", __FILE__)

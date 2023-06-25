@@ -35,3 +35,5 @@ end
 File.open(INDEX_PATH, 'a') do |file|
     file.puts "#{sha} #{path}"
 end
+
+puts "📥 Staged file ready for commit: #{path}"

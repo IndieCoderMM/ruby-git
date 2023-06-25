@@ -32,4 +32,4 @@ build_objects_dir
 build_refs_dir
 initialize_head
 
-$stdout.puts "🚀 New Rubit project initialized at #{Dir.pwd}/#{RUBIT_DIR}"
+$stdout.puts "🎉 New Rubit project initialized at #{Dir.pwd}/#{RUBIT_DIR}"
