@@ -38,8 +38,6 @@ def index_tree
     end
 end
 
-puts index_tree
-
 def build_tree(name, tree) 
     sha = Digest::SHA1.hexdigest(Time.now.iso8601 + name)
     object = Rubit::Object.new(sha)
